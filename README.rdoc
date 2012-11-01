@@ -1,16 +1,49 @@
 = tree_node
 
-Description goes here.
+Simple tree node implementation
 
-== Contributing to tree_node
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+== Usage
+
+    require 'rubygems'
+    require 'tree_node'
+
+    class Link
+      include Tree::Node
+      attr_accessor :name, :id
+      def initialize(name)
+        @name     = "#{name}"
+        @id       = Time.now.to_f * 1.0
+      end
+    end
+
+    grampa          = Link.new(:grampa)
+    father          = Link.new(:father)
+    uncle           = Link.new(:uncle)
+    first_son       = Link.new(:first_son)
+    second_son      = Link.new(:second_son)
+    daughter        = Link.new(:daughter)
+    first_cousin    = Link.new(:first_cousin)
+    second_cousin   = Link.new(:second_cousin)
+    great_grand_son = Link.new(:great_grand_son)
+
+    grampa.add_child(father)
+      father.add_child(first_son)
+      father.add_child(second_son)
+      father.add_child(daughter)
+    grampa.add_child(uncle)
+      uncle.add_child(first_cousin)
+      uncle.add_child(second_cousin)
+        second_cousin.add_child(great_grand_son)
+
+    puts great_grand_son.root { |node| node.name }
+    puts great_grand_son.map(:up) { |node| node.name }.inspect
+    puts grampa.map(:down) { |node| node.name }.inspect
+
+== Output
+
+  grampa
+  ["grampa", "uncle", "second_cousin", "great_grand_son"]
+  ["grampa", "father", "first_son", "second_son", "daughter", "uncle", "first_cousin", "second_cousin", "great_grand_son"]
 
 == Copyright
 
