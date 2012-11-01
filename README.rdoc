@@ -41,9 +41,9 @@ Simple tree node implementation
 
 == Output
 
-  grampa
-  ["grampa", "uncle", "second_cousin", "great_grand_son"]
-  ["grampa", "father", "first_son", "second_son", "daughter", "uncle", "first_cousin", "second_cousin", "great_grand_son"]
+    grampa
+    ["grampa", "uncle", "second_cousin", "great_grand_son"]
+    ["grampa", "father", "first_son", "second_son", "daughter", "uncle", "first_cousin", "second_cousin", "great_grand_son"]
 
 == Copyright
 
